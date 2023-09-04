@@ -18,7 +18,7 @@ interface Props {
     id: string;
     name: string;
     image: string;
-  } | null;
+  } ;
   createdAt: string;
   comments: {
     author: {
@@ -39,6 +39,8 @@ function ThreadCard({
   comments,
   isComment,
 }: Props) {
+  const communityName = community ? community.name : 'No Community'; // Use a default value if community is null
+  const communityImage = community ? community.image : '/default-image.jpg'; // Use a default image URL if community is null
   return (
     <article
       className={`flex w-full flex-col rounded-xl ${
@@ -143,24 +145,27 @@ function ThreadCard({
           </Link>
         </div>
       )}
+{console.log('COMMUNITY', community)}
 
-      {!isComment && community && (
+{!isComment && (
         <Link
-          href={`/communities/${community.id}`}
+          href={`/communities/${community ? community.id : ''}`} // Ensure you handle null community.id
           className='mt-5 flex items-center'
         >
           <p className='text-subtle-medium text-gray-1'>
             {formatDateString(createdAt)}
-            {community && ` - ${community.name} Community`}
+            {community && ` - ${communityName} Community`}
           </p>
 
-          <Image
-            src={community.image}
-            alt={community.name}
-            width={14}
-            height={14}
-            className='ml-1 rounded-full object-cover'
-          />
+          {community && (
+            <Image
+              src={communityImage}
+              alt={communityName}
+              width={14}
+              height={14}
+              className='ml-1 rounded-full object-cover'
+            />
+          )}
         </Link>
       )}
     </article>

@@ -213,7 +213,7 @@ export async function addCommentToThread(
     const originalThread = await Thread.findById(threadId);
 
     if (!originalThread) {
-      throw new Error("Thread not found");
+      throw new Error("Thought not found");
     }
 
     // Create the new comment thread

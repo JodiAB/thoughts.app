@@ -41,11 +41,14 @@ async function Home({
                 parentId={post.parentId}
                 content={post.text}
                 author={post.author}
-                community={post.community}
+                
+                community={post.organization}
                 createdAt={post.createdAt}
                 comments={post.children}
               />
+              
             ))}
+            console.log('Organization Data:', thread.organization);
           </>
         )}
       </section>
