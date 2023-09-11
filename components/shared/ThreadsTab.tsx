@@ -1,8 +1,6 @@
-import { redirect } from "next/navigation";
-
+import { useRouter } from "next/router"; // Import the useRouter hook
 import { fetchCommunityPosts } from "@/lib/actions/community.actions";
 import { fetchUserPosts } from "@/lib/actions/user.actions";
-
 import ThreadCard from "../cards/ThreadCard";
 
 interface Result {
@@ -39,7 +37,9 @@ interface Props {
 }
 
 async function ThreadsTab({ currentUserId, accountId, accountType }: Props) {
-  let result: Result;
+  const router = useRouter(); // Get the router instance
+
+  let result: Result | null = null;
 
   if (accountType === "Community") {
     result = await fetchCommunityPosts(accountId);
@@ -48,11 +48,13 @@ async function ThreadsTab({ currentUserId, accountId, accountType }: Props) {
   }
 
   if (!result) {
-    redirect("/");
+    // Use the router to navigate to the home page
+    router.push("/");
+    return null; // Return null or some loading component here
   }
 
   return (
-    <section className='mt-9 flex flex-col gap-10'>
+    <section className="mt-9 flex flex-col gap-10">
       {result.threads.map((thread) => (
         <ThreadCard
           key={thread._id}

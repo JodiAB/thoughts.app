@@ -51,7 +51,7 @@ export async function fetchPosts(pageNumber = 1, pageSize = 20) {
 interface Params {
   text: string,
   author: string,
-  communityId: string | null,
+  communityId: string,
   path: string,
 }
 
@@ -213,7 +213,7 @@ export async function addCommentToThread(
     const originalThread = await Thread.findById(threadId);
 
     if (!originalThread) {
-      throw new Error("Thought not found");
+      throw new Error("Thread not found");
     }
 
     // Create the new comment thread

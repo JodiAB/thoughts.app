@@ -1,12 +1,11 @@
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
- import ThreadCard from "@/components/cards/ThreadCard";
- import Pagination from "@/components/shared/Pagination";
+import ThreadCard from "@/components/cards/ThreadCard";
+import Pagination from "@/components/shared/Pagination";
 
-
+import { fetchPosts } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
-import { fetchPosts } from "@/lib/actions/thread.action";
 
 async function Home({
   searchParams,
@@ -41,14 +40,11 @@ async function Home({
                 parentId={post.parentId}
                 content={post.text}
                 author={post.author}
-                
-                community={post.organization}
+                community={post.community}
                 createdAt={post.createdAt}
                 comments={post.children}
               />
-              
             ))}
-            console.log('Organization Data:', thread.organization);
           </>
         )}
       </section>

@@ -41,6 +41,7 @@ function ThreadCard({
 }: Props) {
   const communityName = community ? community.name : 'No Community'; // Use a default value if community is null
   const communityImage = community ? community.image : '/default-image.jpg'; // Use a default image URL if community is null
+  console.log('Communities', community)
   return (
     <article
       className={`flex w-full flex-col rounded-xl ${
@@ -145,7 +146,7 @@ function ThreadCard({
           </Link>
         </div>
       )}
-{console.log('COMMUNITY', community)}
+
 
 {!isComment && (
         <Link
@@ -153,8 +154,8 @@ function ThreadCard({
           className='mt-5 flex items-center'
         >
           <p className='text-subtle-medium text-gray-1'>
-            {formatDateString(createdAt)}
-            {community && ` - ${communityName} Community`}
+            {formatDateString(createdAt)} 
+            - {community?.name} Community
           </p>
 
           {community && (
@@ -170,6 +171,7 @@ function ThreadCard({
       )}
     </article>
   );
+  
 }
 
 export default ThreadCard;
